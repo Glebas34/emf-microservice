@@ -1,4 +1,11 @@
-FROM openjdk:latest
-ARG JAR_FILE=emf_microservice/target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:21-bullseye
+
+WORKDIR /app
+
+COPY emf_microservice/.mvn/ .mvn
+COPY emf_microservice/mvnw emf_microservice/pom.xml ./
+RUN ./mvnw dependency:go-offline
+
+COPY emf_microservice/src ./src
+
+CMD ["./mvnw", "spring-boot:run"]
