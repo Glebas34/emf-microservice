@@ -27,11 +27,11 @@ public class EmfController {
     public ResponseEntity<byte[]> convert(@RequestParam("file") MultipartFile file) {
         try {
             var fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-            if (fileExtension != "emf" & fileExtension != "wmf")
+            if (!fileExtension.equals("emf") & !fileExtension.equals("wmf"))
             {
                 return ResponseEntity.status(400).body(null);
             }
-            if (fileExtension == "emf") {
+            if (fileExtension.equals("emf")) {
                 HemfPicture picture = new HemfPicture(file.getInputStream());              
                 Dimension2D dim = picture.getSize();            
                 int width = Units.pointsToPixel(dim.getWidth());           
