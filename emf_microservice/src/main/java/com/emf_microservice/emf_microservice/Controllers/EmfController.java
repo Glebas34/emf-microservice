@@ -26,12 +26,12 @@ public class EmfController {
     @PostMapping("/convert")
     public ResponseEntity<byte[]> convert(@RequestParam("file") MultipartFile file) {
         try {
-            var fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-            if (!fileExtension.equals("emf") & !fileExtension.equals("wmf"))
+            var contentType = file.getContentType();
+            if (!contentType.equals("image/x-emf") & !contentType.equals("image/x-wmf"))
             {
                 return ResponseEntity.status(400).body(null);
             }
-            if (fileExtension.equals("emf")) {
+            if (contentType.equals("image/x-emf")) {
                 HemfPicture picture = new HemfPicture(file.getInputStream());              
                 Dimension2D dim = picture.getSize();            
                 int width = Units.pointsToPixel(dim.getWidth());           
