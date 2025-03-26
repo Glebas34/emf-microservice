@@ -30,7 +30,7 @@ public class EmfController {
                 & !contentType.equals("image/emf") & !contentType.equals("image/wmf")) {
                 return ResponseEntity.status(400).body(null);
             }
-            if (contentType.equals("image/x-emf")) {
+            if (contentType.equals("image/x-emf") || contentType.equals("image/emf")) {
                 HemfPicture picture = new HemfPicture(file.getInputStream());              
                 Dimension2D dim = picture.getSize();            
                 int width = Units.pointsToPixel(dim.getWidth());           
