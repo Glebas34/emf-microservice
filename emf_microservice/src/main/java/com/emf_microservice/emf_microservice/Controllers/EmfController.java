@@ -17,7 +17,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.Dimension2D;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import org.apache.commons.io.FilenameUtils;
 
 @RestController
 @RequestMapping("/emf")
@@ -27,8 +26,8 @@ public class EmfController {
     public ResponseEntity<byte[]> convert(@RequestParam("file") MultipartFile file) {
         try {
             var contentType = file.getContentType();
-            if (!contentType.equals("image/x-emf") & !contentType.equals("image/x-wmf"))
-            {
+            if (!contentType.equals("image/x-emf") & !contentType.equals("image/x-wmf") 
+                & !contentType.equals("image/emf") & !contentType.equals("image/wmf")) {
                 return ResponseEntity.status(400).body(null);
             }
             if (contentType.equals("image/x-emf")) {
