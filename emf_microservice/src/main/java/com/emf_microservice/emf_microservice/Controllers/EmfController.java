@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
 public class EmfController {
 
     @PostMapping("/convert")
-    public ResponseEntity<byte[]> convert(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<byte[]> convert(MultipartFile file) {
         try {
             var contentType = file.getContentType();
             if (!contentType.equals("image/x-emf") & !contentType.equals("image/x-wmf") 
